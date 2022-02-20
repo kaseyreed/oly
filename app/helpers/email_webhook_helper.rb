@@ -1,0 +1,2 @@
+module EmailWebhookHelper
+end

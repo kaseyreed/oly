@@ -1,0 +1,3 @@
+class EmailWebhookRequest < ApplicationRecord
+
+end
