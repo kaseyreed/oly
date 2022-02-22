@@ -3,13 +3,12 @@ class RawTrainingItem < ApplicationRecord
 
 
   class << self
-
     def process_raw_training_item(raw_training_item, training_id:)
       movements = Movement.find_by_raw(raw_training_item.name)
 
       complex = movements.length > 1
-      num_sets = 0
-      rep_scheme = []
+      num_sets = parse_sets(raw_training_item.description)
+      rep_scheme = parse_rep_scheme(raw_training_item.description)
 
       TrainingItem.create!(
         training_id:,
@@ -26,12 +25,11 @@ class RawTrainingItem < ApplicationRecord
     end
 
     def parse_sets(info)
-
+      3
     end
 
     def parse_rep_scheme(info)
-
+      [1]
     end
-
   end
 end

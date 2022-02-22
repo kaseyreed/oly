@@ -2,13 +2,11 @@
 
 class TrainingsController < ApplicationController
   def index
-    trainings = Training.all
-    render json: trainings.to_json
+    @trainings = Training.includes(training_items: :movements).all
   end
 
   def show
-    training = Training.find_by! id: params[:id]
-    render json: training.to_json
+    @training = Training.includes(training_items: :movements).find(params[:id])
   end
 
   def update; end

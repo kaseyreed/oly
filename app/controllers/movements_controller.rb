@@ -2,12 +2,10 @@
 
 class MovementsController < ApplicationController
   def index
-    movements = Movement.all
-    render json: movements.to_json
+    @movements = Movement.all
   end
 
   def show
-    movement = Movement.find_by! id: params[:id]
-    render json: movement.to_json
+    @movement = Movement.find params[:id]
   end
 end

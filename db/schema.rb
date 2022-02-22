@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_19_231454) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_21_215605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_19_231454) do
     t.integer "num_sets"
     t.integer "rep_scheme"
     t.integer "state"
-    t.text "notes"
     t.boolean "superset"
     t.integer "raw_training_items_id", null: false
     t.datetime "created_at", null: false
