@@ -3,6 +3,10 @@
 class Movement < ApplicationRecord
   validates :name, uniqueness: true
 
+  def type
+    movement_type
+  end
+
   class << self
     TYPES = %w[snatch squat jerk clean pull deadlift press pullup pulldown row plank bench other].freeze
 
