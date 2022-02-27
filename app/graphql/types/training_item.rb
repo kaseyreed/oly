@@ -5,7 +5,7 @@ module Types
     field :complex, Boolean, null: false
 
     field :num_sets, Int, null: false
-    # field :rep_scheme, null: false
+    field :rep_scheme, [Int], null: false
     field :state, TrainingState, null: false
     field :superset, Boolean, null: true
 
@@ -13,6 +13,14 @@ module Types
 
     def state
       :ready
+    end
+
+    def rep_scheme
+      if object.rep_scheme.present?
+        object.rep_scheme
+      else
+        []
+      end
     end
   end
 end

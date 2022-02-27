@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_21_215605) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,12 +57,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_21_215605) do
     t.integer "index"
     t.boolean "complex"
     t.integer "num_sets"
-    t.integer "rep_scheme"
     t.integer "state"
     t.boolean "superset"
     t.integer "raw_training_items_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rep_scheme", array: true
     t.index ["raw_training_items_id"], name: "index_training_items_on_raw_training_items_id"
     t.index ["training_id"], name: "index_training_items_on_training_id"
   end
