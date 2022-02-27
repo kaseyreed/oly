@@ -1,17 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :movements
-  resources :trainings
-  resources :training_items, path: 'training-items'
+  mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
+  post '/graphql', to: 'graphql#execute'
 
   post '/webhooks/email', to: 'email_webhook#handle'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  # errors
   get '/404' => 'errors#not_found'
   get '/500' => 'errors#internal_server_error'
 end
