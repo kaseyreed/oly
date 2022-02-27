@@ -1,1 +1,0 @@
-json.partial! 'training_items/training_item', item: @training_item

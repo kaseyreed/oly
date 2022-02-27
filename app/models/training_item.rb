@@ -7,4 +7,8 @@ class TrainingItem < ApplicationRecord
   has_one :raw_training_item
 
   has_many :movements, through: :training_items_movements
+
+  def results
+    training_items_results
+  end
 end
