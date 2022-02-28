@@ -22,5 +22,13 @@ module Oly
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.exceptions_app = routes
+
+    # cors policy
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'kaseyreed-oly-*.githubpreview.dev'
+        resource 'graphql', :headers => :any, :methods => [:post, :options]
+      end
+    end
   end
 end
