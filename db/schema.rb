@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   end
 
   create_table "raw_training_items", force: :cascade do |t|
-    t.integer "raw_training_id", null: false
+    t.bigint "raw_training_id", null: false
     t.text "name"
     t.text "description"
     t.boolean "superset"
@@ -53,13 +53,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   end
 
   create_table "training_items", force: :cascade do |t|
-    t.integer "training_id", null: false
+    t.bigint "training_id", null: false
     t.integer "index"
     t.boolean "complex"
     t.integer "num_sets"
     t.integer "state"
     t.boolean "superset"
-    t.integer "raw_training_items_id", null: false
+    t.bigint "raw_training_items_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "rep_scheme", array: true
@@ -68,8 +68,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   end
 
   create_table "training_items_movements", force: :cascade do |t|
-    t.integer "training_item_id", null: false
-    t.integer "movement_id", null: false
+    t.bigint "training_item_id", null: false
+    t.bigint "movement_id", null: false
     t.integer "rep_scheme_idx"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   end
 
   create_table "training_items_results", force: :cascade do |t|
-    t.integer "training_item_id", null: false
+    t.bigint "training_item_id", null: false
     t.integer "index"
     t.integer "reps"
     t.integer "weight"
@@ -91,7 +91,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   end
 
   create_table "trainings", force: :cascade do |t|
-    t.integer "raw_training_id"
     t.text "title"
     t.datetime "date", precision: nil
     t.integer "state"
@@ -99,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
     t.text "cooldown"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "raw_training_id"
     t.index ["raw_training_id"], name: "index_trainings_on_raw_training_id"
   end
 
@@ -108,4 +108,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
   add_foreign_key "training_items_movements", "movements"
   add_foreign_key "training_items_movements", "training_items"
   add_foreign_key "training_items_results", "training_items"
+  add_foreign_key "trainings", "raw_trainings"
 end
