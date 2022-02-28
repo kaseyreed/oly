@@ -77,3 +77,4 @@ gem 'graphql'
 gem 'pg', '~> 1.3'
 
 gem "graphiql-rails", group: :development
+gem 'rack-cors', :require => 'rack/cors'
