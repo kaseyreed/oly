@@ -11,8 +11,21 @@ module Types
 
     field :movements, [MovementType], null: false
 
+    # consider making this a sub object? or maybe a top-level field?
+    field :original_name, String, null: false
+    field :original_description, String, null: false
+
+
     def state
       :ready
+    end
+
+    def original_name
+      object.raw_training_item[:name]
+    end
+
+    def original_description
+      object.raw_training_item[:description]
     end
 
     def rep_scheme

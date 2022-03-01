@@ -71,7 +71,7 @@ class RawTrainingItem < ApplicationRecord
         return []
       end
 
-      parse_rep_scheme_single(info)
+      [parse_rep_scheme_single(info)]
     end
 
     # basic example: 10 reps x 3 sets
@@ -80,7 +80,37 @@ class RawTrainingItem < ApplicationRecord
     # 2112; 10 reps each side x 3 sets
     # new todo:  5 reps x 3-4 sets
     def parse_rep_scheme_single(info)
-      /(?<num_reps>\d{1,2})(-\d{1,2})? (reps )?(each leg )?(each arm )?(pull throughs each side )?x \d{1,2} (working |top )?sets?/
+      groups = /(?<num_reps>\d{1,2})(-\d{1,2})? (reps )?(each leg )?(each arm )?(pull throughs each side )?x \d{1,2} (working |top )?sets?/.match info
+      return groups[:num_reps].to_i if groups.present?
+
+      groups = /(?<num_reps>\d)RM/.match info
+      return groups[:num_reps].to_i if groups.present?
+
+      match = /\d+ singles/
+      return 1 if match.present?
+
+      # light technical triples x 3 working sets
+      # Work to moderate triple for 3 sets; Rest 2 min
+      # Work to moderate double for 3 sets
+      groups = /Work to moderate (?<rep_str>triple|double) (?:for |x )?\d sets/.match info
+      if groups.present?
+        return 3 if groups[:rep_str].eql? 'triple'
+        return 2 if groups[:rep_str].eql? 'double'
+      end
+
+      # also need to handle 3,2,1 working to...
+      stripped_info = info.gsub(',', '')
+      match = /(321 )?(working )?to (top )?single/.match stripped_info
+      return 1 if match.present?
+
+      # cluster singles
+      # cluster singles. "1.1.1. reps x 3 working sets; Rest 1 min btw clusters; 2 min btw sets"
+
+      1 # More work to do.
+    end
+
+    def evaluate(regex, &mapper)
+
     end
   end
 end
