@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ProcessRawTrainingsJob < ApplicationJob
+class ProcessEmailWebhookRequestJob < ApplicationJob
   queue_as :default
 
   def perform(request_id:)
@@ -16,17 +16,10 @@ class ProcessRawTrainingsJob < ApplicationJob
     parsed_raw_trainings = parse_text(text: payload['text'], date:, weekly:)
 
     # persist raw trainings and items
-    raw_trainings = parsed_raw_trainings.map do |prt|
-      raw_training = RawTraining.create! date:, name: prt[:name], warmup: prt[:warmup], cooldown: prt[:cooldown]
-      prt[:items].each { |prti| raw_training.raw_training_items.create!(**prti) }
-      raw_training
+    parsed_raw_trainings.each do |prt|
+      raw_training = RawTraining.create!(date:, name: prt[:name], warmup: prt[:warmup], cooldown: prt[:cooldown])
+      prt[:items].each { |prti| raw_training.items.create!(**prti) }
     end
-
-    # process movements from raw training items
-    raw_movements = parsed_raw_trainings.map { |prt| prt[:items].map { |i| i[:name] } }.flatten
-    movements = Movement.process_raw_movements(raw_movements)
-
-    RawTraining.process_raw_trainings(raw_trainings)
   end
 
   private

@@ -10,6 +10,6 @@ class EmailWebhookController < ApplicationController
     # from = params[:from][:value][0][:name]
 
     request = EmailWebhookRequest.create! payload: params[:email_webhook]
-    ProcessRawTrainingsJob.perform_later request_id: request.id
+    ProcessEmailWebhookRequestJob.perform_later request_id: request.id
   end
 end
