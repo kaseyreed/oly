@@ -23,6 +23,7 @@ class Movement < ApplicationRecord
       movements = raw_movements.map { |rm| Movement.sanitize(rm) }
                                .map { |a| Movement.parse_into_movements(a) }
                                .flatten
+                               .uniq
 
       p "processed movements #{movements}"
 

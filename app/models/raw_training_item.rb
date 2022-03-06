@@ -17,7 +17,7 @@ class RawTrainingItem < ApplicationRecord
         complex:,
         num_sets:,
         rep_scheme:,
-        state: 0,
+        state: TrainingItem.states[raw_training_item[:state]],
         superset: raw_training_item.superset,
         raw_training_items_id: raw_training_item.id,
         movements:
@@ -107,10 +107,6 @@ class RawTrainingItem < ApplicationRecord
       # cluster singles. "1.1.1. reps x 3 working sets; Rest 1 min btw clusters; 2 min btw sets"
 
       1 # More work to do.
-    end
-
-    def evaluate(regex, &mapper)
-
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_06_224713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
     t.text "results"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state", default: "pending"
     t.index ["raw_training_id"], name: "index_raw_training_items_on_raw_training_id"
   end
 
@@ -50,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_27_234803) do
     t.boolean "processed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state", default: "pending"
   end
 
   create_table "training_items", force: :cascade do |t|

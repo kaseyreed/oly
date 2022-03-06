@@ -7,14 +7,13 @@ class RawTraining < ApplicationRecord
 
   class << self
     def process_raw_trainings(raw_trainings)
-      RawTraining.transaction do
-        raw_trainings.each do |rt|
-
+      raw_trainings.each do |rt|
+        RawTraining.transaction do
           training = Training.create!(
             raw_training_id: rt.id,
             title: rt.name,
             date: DateTime.parse(rt.date),
-            state: 0,
+            state: Training.states[rt[:state]],
             warmup: rt.warmup,
             cooldown: rt.cooldown
           )

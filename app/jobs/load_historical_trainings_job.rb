@@ -12,7 +12,7 @@ class LoadHistoricalTrainingsJob < ApplicationJob
     @workouts.select! { |w| w[:rest_day] == false }
     @missing_items = 0
 
-    @workouts.each(&method(:process_workout))
+    @workouts.each(&method(:load_workout))
 
     p 'Completed Processing of Historical Trainings and Results.'
   end
@@ -25,17 +25,18 @@ class LoadHistoricalTrainingsJob < ApplicationJob
     workout_items_file = File.read(workout_item_json)
 
     @workouts = JSON.parse(workouts_file, symbolize_names: true)
-    workout_items = JSON.parse(workout_items_file)
+    workout_items = JSON.parse(workout_items_file, symbolize_names: true)
 
     @workout_items = workout_items.each_with_object({}) do |item, obj|
-      obj[item['id']] = item
+      obj[item[:id]] = item
+      obj
     end
 
     p "There are #{@workouts.length} workouts"
     p "There are #{@workout_items.length} workout items"
   end
 
-  def process_workout(workout)
+  def load_workout(workout)
     raw_training = RawTraining.new
 
     raw_training.date = workout[:due] # raw_trainings.date "2021"
@@ -44,12 +45,11 @@ class LoadHistoricalTrainingsJob < ApplicationJob
     raw_training.warmup = workout[:warmup] # raw_trainings.warmup
     raw_training.cooldown = workout[:cooldown] # raw_trainings.cooldown
 
-    raw_training.save!
-
     item_ids = workout[:workout_item_ids]
     item_ids.map { |item_id| @workout_items[item_id] }
-            .each { |workout_item| process_workout_item(raw_training, workout_item) }
+            .each { |workout_item| load_workout_item(raw_training, workout_item) }
 
+    raw_training.processed = false
     raw_training.save!
   end
 
@@ -63,7 +63,7 @@ class LoadHistoricalTrainingsJob < ApplicationJob
     raw_training_item.superset = workout_item[:linked]
     raw_training_item.index = workout_item[:position]
     raw_training_item.results = workout_item[:result]
-
+    raw_training_item.processed = false
     raw_training_item.save!
   end
 end
