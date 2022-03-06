@@ -1,6 +1,10 @@
 class RawTraining < ApplicationRecord
   has_many :raw_training_items, dependent: :destroy
 
+  def items
+    raw_training_items
+  end
+
   class << self
     def process_raw_trainings(raw_trainings)
       RawTraining.transaction do

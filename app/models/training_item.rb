@@ -8,6 +8,13 @@ class TrainingItem < ApplicationRecord
 
   has_many :movements, through: :training_items_movements
 
+  enum state: {
+    pending: 0,
+    completed: 1,
+    missed: 2,
+    skipped: 3
+  }
+
   def results
     training_items_results
   end
