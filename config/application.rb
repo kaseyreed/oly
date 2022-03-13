@@ -10,25 +10,14 @@ Bundler.require(*Rails.groups)
 
 module Oly
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
+    config.api_only = true
+    config.debug_exception_response_format = :api
     config.time_zone = 'Central Time (US & Canada)'
-    # config.eager_load_paths << Rails.root.join("extras")
 
-    config.exceptions_app = routes
-
-    # cors policy
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins 'kaseyreed-oly-*.githubpreview.dev'
-        resource 'graphql', :headers => :any, :methods => [:post, :options]
-      end
-    end
+    # Set up for graphiql?
+    config.session_store :cookie_store, key: '_oly_session'
+    config.middleware.use ActionDispatch::Cookies # Required for all session management
+    config.middleware.use config.session_store, config.session_options
   end
 end
