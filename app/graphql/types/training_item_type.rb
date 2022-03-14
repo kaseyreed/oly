@@ -1,12 +1,12 @@
 module Types
-  class TrainingItem < Types::BaseObject
+  class TrainingItemType < Types::BaseObject
     field :id, ID, null: false
     field :index, Int, null: false
     field :complex, Boolean, null: false
 
     field :num_sets, Int, null: false
     field :rep_scheme, [Int], null: false
-    field :state, TrainingState, null: false
+    field :state, TrainingStateEnum, null: false
     field :superset, Boolean, null: true
 
     field :movements, [MovementType], null: false
@@ -17,7 +17,7 @@ module Types
 
 
     def state
-      :ready
+      object.state.to_sym
     end
 
     def original_name

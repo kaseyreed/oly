@@ -5,5 +5,6 @@ module Types
     # field :record_results, mutation: Mutations::AddTrainingResult
 
     field :test_field, mutation: Mutations::TestMutation
+    field :update_training, mutation: Mutations::UpdateTrainingMutation
   end
 end

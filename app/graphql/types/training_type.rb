@@ -4,14 +4,14 @@ module Types
     field :title, String, null: false
     field :date, String, null: false
 
-    field :state, TrainingState, null: false
+    field :state, TrainingStateEnum, null: false
     field :warmup, String
     field :cooldown, String
 
-    field :items, [TrainingItem], null: false
+    field :items, [TrainingItemType], null: false
 
     def state
-      :ready
+      object.state.to_sym
     end
   end
 end
