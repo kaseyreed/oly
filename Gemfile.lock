@@ -66,9 +66,14 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     bindex (0.8.1)
     bootsnap (1.10.3)
       msgpack (~> 1.2)
+    browserslist_useragent (0.2.0)
+      semantic
+      user_agent_parser
     builder (3.2.4)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
@@ -122,12 +127,20 @@ GEM
     nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     pg (1.3.2)
+    public_suffix (4.0.6)
     puma (5.6.2)
       nio4r (~> 2.0)
+    quilt_rails (3.5.5)
+      activesupport (>= 3.2.0)
+      rails-reverse-proxy (~> 0.9.0)
+      railties (>= 3.2.0)
+      statsd-instrument (>= 2.8.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-proxy (0.7.2)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.2.2)
@@ -149,6 +162,11 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
+    rails-reverse-proxy (0.9.1)
+      addressable
+      rack
+      rack-proxy
+      rails
     railties (7.0.2.2)
       actionpack (= 7.0.2.2)
       activesupport (= 7.0.2.2)
@@ -159,6 +177,11 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
+    semantic (1.6.1)
+    sewing_kit (0.129.0)
+      browserslist_useragent
+      railties (>= 3.2.0)
+      rake
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -166,11 +189,13 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    statsd-instrument (3.1.2)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    user_agent_parser (2.9.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -193,8 +218,10 @@ DEPENDENCIES
   graphql_playground-rails
   pg (~> 1.3)
   puma (~> 5.0)
+  quilt_rails (~> 3.5)
   rack-cors
   rails (~> 7.0.2, >= 7.0.2.2)
+  sewing_kit (~> 0.129.0)
   tzinfo-data
   web-console
 

@@ -51,3 +51,6 @@ gem 'pg', '~> 1.3'
 
 gem 'graphiql-rails', group: :development
 gem 'rack-cors', require: 'rack/cors'
+
+gem "sewing_kit", "~> 0.129.0"
+gem "quilt_rails", "~> 3.5"
