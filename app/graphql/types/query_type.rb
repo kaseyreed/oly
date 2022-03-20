@@ -18,9 +18,9 @@ module Types
 
     def movements(search_term: nil)
       if search_term
-        Movement.where('name ILIKE ?', "%#{search_term}%")
+        Movement.where('name ILIKE ?', "%#{search_term}%").order(:name)
       else
-        Movement.all
+        Movement.all.order(:name)
       end
     end
 
