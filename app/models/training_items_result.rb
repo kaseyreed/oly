@@ -1,5 +1,4 @@
 class TrainingItemsResult < ApplicationRecord
-  belongs_to :training_item
 
   default_scope { order(:index) }
 
@@ -48,7 +47,7 @@ class TrainingItemsResult < ApplicationRecord
             miss: miss,
             weight_unit: current_weight_unit,
           }
-          break
+          next
         end
 
         result = /^(?<weight>\d{1,3})/.match set_str
@@ -66,7 +65,7 @@ class TrainingItemsResult < ApplicationRecord
             miss: miss,
             weight_unit: current_weight_unit,
           }
-          break
+          next
         end
 
         # TODO: how many of these are there?
@@ -75,7 +74,7 @@ class TrainingItemsResult < ApplicationRecord
 
       results.each_with_index do |result, index|
         TrainingItemsResult.create!(
-          training_item: training_item,
+          training_item_id: training_item.id,
           reps: result[:reps],
           weight: result[:weight],
           miss: result[:miss],

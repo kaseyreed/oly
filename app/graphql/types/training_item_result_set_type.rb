@@ -5,7 +5,6 @@ module Types
     # field :num_sets, Int, null: false
     field :reps, Int, null: false
     field :weight, Float, null: false
-    field :weight_lbs, Float, null: false
     field :miss, Boolean, null: false
   end
 end

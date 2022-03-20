@@ -7,5 +7,11 @@ module Types
     field :warmup_sets, [Types::TrainingItemResultSetType], null: false
     field :working_sets, [Types::TrainingItemResultSetType], null: false
     field :backoff_sets, [Types::TrainingItemResultSetType], null: false
+
+    def working_sets
+      object.where(set_type: :working_set)
+    end
   end
+
+
 end

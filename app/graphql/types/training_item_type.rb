@@ -15,6 +15,8 @@ module Types
     field :original_name, String, null: false
     field :original_description, String, null: false
 
+    field :results, TrainingItemResultsType, null: true
+
 
     def state
       object.state.to_sym
