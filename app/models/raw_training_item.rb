@@ -11,7 +11,7 @@ class RawTrainingItem < ApplicationRecord
       num_sets = parse_sets(raw_training_item.description)
       rep_scheme = parse_rep_scheme(raw_training_item.description, complex)
 
-      TrainingItem.create!(
+      training_item = TrainingItem.create!(
         training_id:,
         index: raw_training_item.index,
         complex:,
@@ -22,6 +22,12 @@ class RawTrainingItem < ApplicationRecord
         raw_training_items_id: raw_training_item.id,
         movements:
       )
+
+      TrainingItemsResult.process_raw_results(
+        training_item.id,
+        movements.first,
+        raw_training_item[:results]
+      ) if raw_training_item[:results].present?
     end
 
     # should support variable sets parsing, for example: working to a max or an rm,
