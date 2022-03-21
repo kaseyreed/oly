@@ -6,5 +6,6 @@ module Types
 
     field :test_field, mutation: Mutations::TestMutation
     field :update_training, mutation: Mutations::UpdateTrainingMutation
+    field :add_results_to_training_item, mutation: Mutations::AddResultsToTrainingItemMutation
   end
 end
