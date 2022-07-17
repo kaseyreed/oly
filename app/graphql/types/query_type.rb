@@ -2,6 +2,10 @@
 
 module Types
   class QueryType < Types::BaseObject
+    field :movement, Types::MovementType, null: true do
+      argument :id, ID, required: true
+    end
+
     field :movements, Types::MovementType.connection_type, null: false do
       argument :search_term, String, required: false
     end
@@ -14,6 +18,10 @@ module Types
 
     field :training_item, Types::TrainingItemType, null: true do
       argument :id, ID, required: true
+    end
+
+    def movement(id:)
+      Movement.find(id)
     end
 
     def movements(search_term: nil)

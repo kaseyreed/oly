@@ -3,12 +3,10 @@ module Types
     field :id, ID, null: false
     field :index, Int, null: false
     field :complex, Boolean, null: false
-
     field :num_sets, Int, null: false
     field :rep_scheme, [Int], null: false
     field :state, TrainingStateEnum, null: false
     field :superset, Boolean, null: true
-
     field :movements, [MovementType], null: false
 
     # consider making this a sub object? or maybe a top-level field?
@@ -16,6 +14,7 @@ module Types
     field :original_description, String, null: false
 
     field :results, TrainingItemResultsType, null: true
+    field :training, TrainingType, null: false
 
 
     def state
@@ -36,6 +35,14 @@ module Types
       else
         []
       end
+    end
+
+    def training
+      object.training
+    end
+
+    def results
+      object.training_items_results
     end
   end
 end

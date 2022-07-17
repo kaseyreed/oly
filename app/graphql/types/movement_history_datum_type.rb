@@ -2,9 +2,11 @@
 
 module Types
   class MovementHistoryDatumType < Types::BaseObject
-    field :id, ID, null: false
-    field :training_item, Types::TrainingItemType, null: false
+    field :num_reps, Int, null: false
     field :date, GraphQL::Types::ISO8601Date, null: false
     field :weight, Float, null: false
+    field :training_id, ID, null: false
+    field :training_item_id, ID, null: false
+    field :training_item_result_id, ID, null: false
   end
 end

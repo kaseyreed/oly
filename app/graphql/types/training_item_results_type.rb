@@ -6,7 +6,8 @@ module Types
 
     field :ramp_up_sets, [Types::TrainingItemResultSetType], null: false
     field :working_sets, [Types::TrainingItemResultSetType], null: false
-    field :cooldown_sets, [Types::TrainingItemResultSetType], null: false
+    field :back_off_sets, [Types::TrainingItemResultSetType], null: false
+    field :drop_sets, [Types::TrainingItemResultSetType], null: false
 
     def working_sets
       object.where(set_type: :working_set)
@@ -16,10 +17,12 @@ module Types
       object.where(set_type: :ramp_up_set)
     end
 
-    def cooldown_sets
+    def back_off_sets
       object.where(set_type: :cooldown_set)
     end
+
+    def drop_sets
+      object.where(set_type: :drop_set)
+    end
   end
-
-
 end
